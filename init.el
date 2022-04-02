@@ -245,6 +245,9 @@
 		   :files ("restclient-jq.el")))
 (add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
 
+(use-package org-roam)
+(use-package org-roam-ui)
+
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
 
