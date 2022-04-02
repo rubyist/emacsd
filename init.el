@@ -282,6 +282,7 @@
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 (setq org-ellipsis " ჻")
+(add-hook 'org-mode-hook 'org-indent-mode)
 
 (use-package avy)
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
