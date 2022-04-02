@@ -248,6 +248,17 @@
 (use-package org-roam)
 (use-package org-roam-ui)
 
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+
+(font-lock-add-keywords 'org-mode
+                        '(("^ *\\([-]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
 (use-package avy)
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
 (global-set-key (kbd "C-c C-j") 'avy-resume)
