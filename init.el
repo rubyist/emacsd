@@ -28,7 +28,7 @@
 
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
-(setq inhibit-start-echo-area-message t)
+(setq inhibit-startup-echo-area-message t)
 (setq initial-buffer-choice nil)
 (setq frame-title-format nil)
 (setq use-file-dialog nil)
