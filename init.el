@@ -231,6 +231,12 @@
 (add-hook 'elixir-mode-hook
 	  (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
 
+(use-package mix
+  :after elixir-mode
+  :config
+  (add-hook 'elixir-mode-hook 'mix-minor-mode)
+  (setq compilation-scroll-output t))
+
 (use-package hl-todo
   :init
   (global-hl-todo-mode))
