@@ -39,6 +39,10 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
+(global-hl-line-mode)
+
 (unbind-key "C-z")
 
 (electric-pair-mode)
@@ -58,11 +62,22 @@
   (vertico-mode)
   (setq vertico-cycle t))
 
+(use-package corfu
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-separator ?\s)
+
+  ; :hook ((prog-mode . corfu-mode))
+
+  :init
+  (corfu-global-mode))
+
 (use-package orderless
   :ensure t
   :custom (completion-styles '(orderless)
 			     completion-category-defaults nil
-			     completion-category-overrides '((file (styles partial-completion)))))
+			     completion-category-overrides '((file (styles . partial-completion)))))
 
 (use-package savehist
   :init
@@ -182,45 +197,42 @@
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
   (setq read-extended-command-predicate
 	#'command-completion-default-include-p)
-  (setq enable-recursive-minibuffers t))
+  (setq enable-recursive-minibuffers t)
+  (setq completion-cycle-threshold 3)
+  (setq tab-always-indent 'complete))
+
+(use-package ripgrep)
+(use-package wgrep)
 
 (use-package magit)
+(use-package git-gutter)
+(global-git-gutter-mode +1)
 
-(use-package ruby-end)
+(use-package elixir-mode)
+(add-hook 'elixir-mode-hook
+	  (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
 
-(use-package elixir-mode
+(use-package hl-todo
   :init
-  (add-to-list 'elixir-mode-hook
-	       (defun auto-activate-ruby-end-mode-for-elixir-mode ()
-		 (set (make-variable-buffer-local 'ruby-end-expand-keywords-berfore-re)
-		      "\\(?:^\\|\\s-+\\)\\(?:do\\)")
-		 (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
-		 (ruby-end-mode +1)))
-  (add-hook 'elixir-mode-hook
-	    (lambda () (add-hook 'before-save-hook 'elixir-format nil t))))
+  (global-hl-todo-mode))
 
-;; TODO these don't turn on and stay on for some reason?
-;; (linum-mode)
-;; (hl-line-mode)
+(use-package zop-to-char
+  :bind
+  (("M-z" . zop-up-to-char)))
 
 
-; (global-hl-todo-mode)
+(use-package yasnippet)
+(add-to-list 'load-path
+	     "~/.emacs.d/snippets")
+(yas-reload-all)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
 
-; (linum-mode)
-; (linum-relative-mode)
+(use-package eglot
+  :commands (eglot eglot-ensure)
+  :hook ((elixir-mode . eglot-ensure)))
 
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
 
-;(straight-use-package 'which-key)
-; (straight-use-package 'magit)
-; (straight-use-package 'company-mode)
-; (straight-use-package 'hl-todo)
-; (straight-use-package 'zop-to-char)
-; (straight-use-package 'linum-relative)
 ; (straight-use-package 'avy)
 ; (straight-use-package 'nano-theme)
-; (straight-use-package 'ag)
-; (straight-use-package 'rg)
-; (straight-use-package 'ripgrep)
-; (straight-use-package 'wgrep)
