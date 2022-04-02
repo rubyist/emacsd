@@ -209,12 +209,12 @@
 (global-git-gutter-mode +1)
 (use-package git-timemachine)
 
+(use-package flycheck
+  :init (global-flycheck-mode))
+
 (use-package elixir-mode)
 (add-hook 'elixir-mode-hook
 	  (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
-(use-package flymake-easy)
-(use-package flymake-elixir)
-(add-hook 'elixir-mode-hook 'flymake-elixir-load)
 
 (use-package hl-todo
   :init
