@@ -238,6 +238,13 @@
 (use-package jq-mode)
 (add-to-list 'auto-mode-alist '("\\.jq$" . jq-mode))
 
+(use-package restclient)
+(use-package restclient-jq
+  :straight (:host github
+		   :repo "pashky/restclient.el"
+		   :files ("restclient-jq.el")))
+(add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
+
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
 
