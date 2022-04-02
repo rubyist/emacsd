@@ -43,6 +43,11 @@
 (global-display-line-numbers-mode t)
 (global-hl-line-mode)
 
+(add-to-list 'initial-frame-alist '(width . (text-pixels . 1260)))
+(add-to-list 'initial-frame-alist '(height . (text-pixels . 1920)))
+(add-to-list 'initial-frame-alist '(top . 0))
+(add-to-list 'initial-frame-alist '(left . 1280))
+
 (unbind-key "C-z")
 
 (electric-pair-mode)
