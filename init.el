@@ -210,10 +210,18 @@
 (use-package wgrep)
 
 (use-package magit)
+
 (use-package forge
+  :after magit
+  :bind
+  (("C-c r" . code-review-forge-pr-at-point)))
+
+(use-package code-review
   :after magit)
+
 (use-package git-gutter)
 (global-git-gutter-mode +1)
+
 (use-package git-timemachine)
 
 (use-package flycheck

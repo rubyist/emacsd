@@ -7,3 +7,5 @@ projectile-bookmarks.eld
 /snippets/
 /org-roam.db
 /forge-database.sqlite
+/code-review-error.log
+/code-review-db-file.sqlite
