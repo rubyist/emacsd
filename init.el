@@ -43,9 +43,6 @@
 (global-display-line-numbers-mode t)
 (global-hl-line-mode)
 
-(add-to-list 'default-frame-alist
-	     '(font . "Office Code Pro D-16:weight=Medium"))
-
 (add-to-list 'initial-frame-alist '(width . (text-pixels . 1260)))
 (add-to-list 'initial-frame-alist '(height . (text-pixels . 1920)))
 (add-to-list 'initial-frame-alist '(top . 0))
@@ -292,6 +289,11 @@
       (setq p2 (point))
       (delete-region p1 p2)
       (uuidgen nil))))
+
+(use-package nano-theme)
+(nano-light)
+(use-package nano-modeline)
+(nano-modeline-mode)
 
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
