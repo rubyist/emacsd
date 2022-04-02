@@ -272,6 +272,8 @@
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
 (global-set-key (kbd "C-c C-j") 'avy-resume)
 
+(use-package uuidgen)
+
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
 
