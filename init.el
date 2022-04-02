@@ -273,6 +273,17 @@
 (global-set-key (kbd "C-c C-j") 'avy-resume)
 
 (use-package uuidgen)
+(defun sb/replace-uuid ()
+  "Replace the UUID in quotes with a new UUID."
+  (interactive)
+  (save-excursion
+    (let (p1 p2)
+      (skip-chars-backward "-a-z0-9")
+      (setq p1 (point))
+      (skip-chars-forward "-a-z0-9")
+      (setq p2 (point))
+      (delete-region p1 p2)
+      (uuidgen nil))))
 
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
