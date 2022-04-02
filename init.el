@@ -207,7 +207,9 @@
   (setq tab-always-indent 'complete))
 
 (use-package ripgrep)
-(use-package wgrep)
+(use-package wgrep
+  :config
+  (setq wgrep-auto-save-buffer t))
 
 (use-package magit)
 
