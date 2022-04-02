@@ -210,6 +210,8 @@
 (use-package wgrep)
 
 (use-package magit)
+(use-package forge
+  :after magit)
 (use-package git-gutter)
 (global-git-gutter-mode +1)
 (use-package git-timemachine)
