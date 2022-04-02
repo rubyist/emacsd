@@ -246,7 +246,15 @@
 (add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
 
 (use-package org-roam)
-(use-package org-roam-ui)
+(use-package websocket
+  :after org-roam)
+
+(use-package org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+	org-roam-ui-follow t
+	org-roam-ui-update-on-save t))
 
 (use-package org-bullets
   :after org
