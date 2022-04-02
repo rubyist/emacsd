@@ -235,6 +235,9 @@
   :commands (eglot eglot-ensure)
   :hook ((elixir-mode . eglot-ensure)))
 
+(use-package jq-mode)
+(add-to-list 'auto-mode-alist '("\\.jq$" . jq-mode))
+
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
 
