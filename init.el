@@ -254,10 +254,11 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-
 (font-lock-add-keywords 'org-mode
                         '(("^ *\\([-]\\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+(setq org-ellipsis " ჻")
 
 (use-package avy)
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
