@@ -33,7 +33,6 @@
 (setq frame-title-format nil)
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
-(setq pop-up-windows nil)
 (setq cursor-in-non-selected-windows nil)
 (setq ring-bell-function 'ignore)
 
@@ -373,6 +372,8 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun sb/iex-start-project ()
   (interactive)
+  (split-window-sensibly)
+  (other-window 1)
   (vterm (sb/iex-project-name))
   (set-buffer (sb/iex-project-name))
   (vterm--set-directory (projectile-project-root))
