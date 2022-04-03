@@ -225,6 +225,9 @@
 
 (use-package git-timemachine)
 
+(use-package magit-todos)
+(magit-todos-mode)
+
 (use-package flycheck
   :init (global-flycheck-mode))
 
