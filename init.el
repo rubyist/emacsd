@@ -228,9 +228,6 @@
 
 (use-package git-timemachine)
 
-(use-package magit-todos)
-(magit-todos-mode)
-
 (use-package flycheck
   :init (global-flycheck-mode))
 
@@ -277,16 +274,16 @@
 		   :files ("restclient-jq.el")))
 (add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
 
-;; (use-package org-roam)
-;; (use-package websocket
-;;   :after org-roam)
+(use-package org-roam)
+(use-package websocket
+  :after org-roam)
 
-;; (use-package org-roam-ui
-;;   :after org-roam
-;;   :config
-;;   (setq org-roam-ui-sync-theme t
-;; 	org-roam-ui-follow t
-;; 	org-roam-ui-update-on-save t))
+(use-package org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+	org-roam-ui-follow t
+	org-roam-ui-update-on-save t))
 
 (use-package org-bullets
   :after org
@@ -300,6 +297,9 @@
 
 (setq org-ellipsis " ჻")
 (add-hook 'org-mode-hook 'org-indent-mode)
+
+(use-package magit-todos)
+(magit-todos-mode)
 
 (use-package avy)
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
