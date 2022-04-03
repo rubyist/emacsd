@@ -238,6 +238,9 @@
   (add-hook 'elixir-mode-hook 'mix-minor-mode)
   (setq compilation-scroll-output t))
 
+(use-package exunit)
+(add-hook 'elixir-mode-hook 'exunit-mode)
+
 (use-package hl-todo
   :init
   (global-hl-todo-mode))
