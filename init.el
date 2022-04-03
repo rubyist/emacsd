@@ -319,10 +319,13 @@
       (setq p2 (point))
       (delete-region p1 p2)
       (uuidgen nil))))
+(global-set-key (kbd "C-c u g") 'uuidgen)
+(global-set-key (kbd "C-c u r") 'sb/replace-uuid)
 
 (use-package elfeed)
 (setq elfeed-feeds
-      '("https://planet.emacslife.com/atom.xml"))
+      '("https://planet.emacslife.com/atom.xml"
+	"https://karthinks.com/index.xml"))
 
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
