@@ -398,5 +398,5 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-c i r") 'sb/iex-send-region)
 (global-set-key (kbd "C-c i p") 'sb/iex-start-project)
 
-(setq custom-file "~/.emacs.d/emacs-cusstom.el")
+(setq custom-file "~/.emacs.d/emacs-custom.el")
 (load custom-file)
