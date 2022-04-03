@@ -277,16 +277,16 @@
 		   :files ("restclient-jq.el")))
 (add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
 
-(use-package org-roam)
-(use-package websocket
-  :after org-roam)
+;; (use-package org-roam)
+;; (use-package websocket
+;;   :after org-roam)
 
-(use-package org-roam-ui
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme t
-	org-roam-ui-follow t
-	org-roam-ui-update-on-save t))
+;; (use-package org-roam-ui
+;;   :after org-roam
+;;   :config
+;;   (setq org-roam-ui-sync-theme t
+;; 	org-roam-ui-follow t
+;; 	org-roam-ui-update-on-save t))
 
 (use-package org-bullets
   :after org
@@ -385,13 +385,12 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun sb/iex-start-project ()
   (interactive)
-  (split-window-sensibly)
-  (other-window 1)
   (vterm (sb/iex-project-name))
   (set-buffer (sb/iex-project-name))
   (vterm--set-directory (projectile-project-root))
   (vterm-send-string (concat "cd " (projectile-project-root) "\n"))
-  (vterm-send-string "iex -S mix\n"))
+  (vterm-send-string "iex -S mix\n")
+  (select-window (previous-window)))
 
 (defun sb/iex-send-region ()
   (interactive)
@@ -407,5 +406,20 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-c i r") 'sb/iex-send-region)
 (global-set-key (kbd "C-c i p") 'sb/iex-start-project)
 
+(add-to-list 'display-buffer-alist
+	     '(".*-iex"
+		(display-buffer-in-side-window)
+		(window-height . 0.25)
+		(side . bottom)
+		(slot . 0)))
+
+(add-to-list 'display-buffer-alist
+	     '("\*exunit-compilation\*"
+	       (display-buffer-in-side-window)
+	       (window-height . 0.25)
+	       (side . bottom)
+	       (slot . 1)))
+
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (load custom-file)
+
