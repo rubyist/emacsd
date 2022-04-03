@@ -309,6 +309,10 @@
       (delete-region p1 p2)
       (uuidgen nil))))
 
+(use-package elfeed)
+(setq elfeed-feeds
+      '("https://planet.emacslife.com/atom.xml"))
+
 (use-package nano-theme)
 (nano-light)
 (use-package nano-modeline)
