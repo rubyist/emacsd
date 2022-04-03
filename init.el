@@ -368,7 +368,7 @@ point reaches the beginning or end of the buffer, stop there."
   (sb/send-string-to-vterm
    name
    (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
-    
+
 (defun sb/iex-project-name ()
   (concat 
    (file-name-base (string-remove-suffix "/" (projectile-project-root)))
@@ -397,3 +397,6 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-c i l") 'sb/iex-send-line)
 (global-set-key (kbd "C-c i r") 'sb/iex-send-region)
 (global-set-key (kbd "C-c i p") 'sb/iex-start-project)
+
+(setq custom-file "~/.emacs.d/emacs-cusstom.el")
+(load custom-file)
