@@ -30,7 +30,7 @@
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message t)
 (setq initial-buffer-choice nil)
-(setq frame-title-format nil)
+(setq frame-title-format "E M Λ C S")
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq cursor-in-non-selected-windows nil)
