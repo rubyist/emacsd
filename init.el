@@ -253,6 +253,7 @@
 (use-package yasnippet)
 (add-to-list 'load-path
 	     "~/.emacs.d/snippets")
+(use-package yasnippet-snippets)
 (yas-reload-all)
 (add-hook 'prog-mode-hook #'yas-minor-mode)
 
