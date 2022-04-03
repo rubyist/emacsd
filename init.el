@@ -296,6 +296,11 @@
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
 (global-set-key (kbd "C-c C-j") 'avy-resume)
 
+(use-package vterm)
+(add-hook 'vterm-mode (lambda () (setq-local global-hl-line-mode nil)))
+(add-hook 'vterm-copy-mode (lambda () (call-interactively 'hl-line-mode)))
+(use-package vterm-toggle)
+
 (use-package uuidgen)
 (defun sb/replace-uuid ()
   "Replace the UUID in quotes with a new UUID."
@@ -344,3 +349,26 @@ point reaches the beginning or end of the buffer, stop there."
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
 
+
+(defun sb/yank-to-vterm ()
+  (interactive)
+  (set-buffer "*vterm*")
+  (vterm-yank)
+  (vterm-send-return))
+
+(defun sb/send-region-to-vterm ()
+  (interactive)
+  (save-excursion
+    (kill-ring-save (region-beginning) (region-end))
+    (sb/yank-to-vterm)))
+
+(defun sb/send-line-to-vterm ()
+  (interactive)
+  (save-excursion
+   (beginning-of-line-text)
+   (push-mark)
+   (end-of-line)
+   (sb/send-region-to-vterm)))
+
+(global-set-key (kbd "C-c v l") 'sb/send-line-to-vterm)
+(global-set-key (kbd "C-c v r") 'sb/send-region-to-vterm)
