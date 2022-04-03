@@ -349,20 +349,46 @@ point reaches the beginning or end of the buffer, stop there."
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
 
-(defun sb/send-string-to-vterm (str)
-  (set-buffer "*vterm*")
+(defun sb/send-string-to-vterm (name str)
+  (set-buffer name)
   (vterm-send-string (string-trim str))
   (vterm-send-return))
 
-(defun sb/send-region-to-vterm ()
+(defun sb/send-region-to-vterm (name)
   (interactive)
   (sb/send-string-to-vterm
+   name
    (buffer-substring-no-properties (region-beginning) (region-end))))
 
-(defun sb/send-line-to-vterm ()
+(defun sb/send-line-to-vterm (name)
   (interactive)
   (sb/send-string-to-vterm
+   name
    (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
     
+(defun sb/iex-project-name ()
+  (concat 
+   (file-name-base (string-remove-suffix "/" (projectile-project-root)))
+   "-iex"))
+
+(defun sb/iex-start-project ()
+  (interactive)
+  (vterm (sb/iex-project-name))
+  (set-buffer (sb/iex-project-name))
+  (vterm--set-directory (projectile-project-root))
+  (vterm-send-string (concat "cd " (projectile-project-root) "\n"))
+  (vterm-send-string "iex -S mix\n"))
+
+(defun sb/iex-send-region ()
+  (interactive)
+  (sb/send-region-to-vterm (sb/iex-project-name)))
+
+(defun sb/iex-send-line ()
+  (interactive)
+  (sb/send-line-to-vterm (sb/iex-project-name)))
+
 (global-set-key (kbd "C-c v l") 'sb/send-line-to-vterm)
 (global-set-key (kbd "C-c v r") 'sb/send-region-to-vterm)
+(global-set-key (kbd "C-c i l") 'sb/iex-send-line)
+(global-set-key (kbd "C-c i r") 'sb/iex-send-region)
+(global-set-key (kbd "C-c i p") 'sb/iex-start-project)
