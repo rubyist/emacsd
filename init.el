@@ -349,26 +349,20 @@ point reaches the beginning or end of the buffer, stop there."
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
 
-
-(defun sb/yank-to-vterm ()
-  (interactive)
+(defun sb/send-string-to-vterm (str)
   (set-buffer "*vterm*")
-  (vterm-yank)
+  (vterm-send-string (string-trim str))
   (vterm-send-return))
 
 (defun sb/send-region-to-vterm ()
   (interactive)
-  (save-excursion
-    (kill-ring-save (region-beginning) (region-end))
-    (sb/yank-to-vterm)))
+  (sb/send-string-to-vterm
+   (buffer-substring-no-properties (region-beginning) (region-end))))
 
 (defun sb/send-line-to-vterm ()
   (interactive)
-  (save-excursion
-   (beginning-of-line-text)
-   (push-mark)
-   (end-of-line)
-   (sb/send-region-to-vterm)))
-
+  (sb/send-string-to-vterm
+   (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+    
 (global-set-key (kbd "C-c v l") 'sb/send-line-to-vterm)
 (global-set-key (kbd "C-c v r") 'sb/send-region-to-vterm)
