@@ -57,6 +57,9 @@
 	'("PATH" "MANPATH" "SSH_AUTH_SOCK"))
   (exec-path-from-shell-initialize))
 
+(use-package ace-window)
+(global-set-key (kbd "M-o") 'ace-window)
+
 (use-package which-key
   :init
   (which-key-mode))
