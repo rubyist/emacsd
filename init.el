@@ -224,11 +224,15 @@
   (setq wgrep-auto-save-buffer t))
 
 (use-package magit)
+(remove-hook 'server-switch-hook 'magit-commit-diff)
+(remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent)
 
 (use-package forge
   :after magit
   :bind
   (("C-c r" . code-review-forge-pr-at-point)))
+(remove-hook 'magit-status-sections-hook 'forge-insert-issues)
+(remove-hook 'magit-status-sections-hook 'forge-insert-pullreqs)
 
 (use-package code-review
   :after magit)
