@@ -15,6 +15,16 @@
 (setq straight-use-package-by-default t)
 
 (make-directory "~/.emacs.d/autosaves/" t)
+(setq
+ backup-by-copying t
+ backup-directory-alist
+ '(("." . "~/.emacs.d/autosaves/"))
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t)
+
+(setq auth-sources '(macos-keychain-internet))
 
 (tooltip-mode -1)
 (menu-bar-mode -1)
@@ -258,7 +268,7 @@
 	     "~/.emacs.d/snippets")
 (use-package yasnippet-snippets)
 (yas-reload-all)
-(add-hook 'prog-mode-hook #'yas-minor-mode)
+(yas-global-mode 1)
 
 (use-package eglot
   :commands (eglot eglot-ensure)
@@ -294,6 +304,7 @@
 (font-lock-add-keywords 'org-mode
                         '(("^ *\\([-]\\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
 
 (setq org-ellipsis " ჻")
 (add-hook 'org-mode-hook 'org-indent-mode)
