@@ -368,10 +368,22 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key [remap move-beginning-of-line]
 		'smarter-move-beginning-of-line)
 
-(use-package nano-theme)
-(nano-light)
-(use-package nano-modeline)
-(nano-modeline-mode)
+;; (use-package nano-theme)
+;; (nano-light)
+;; (use-package nano-modeline)
+;; (nano-modeline-mode)
+
+(set-face-attribute 'default nil :family "Menlo" :height 150)
+
+(setq modus-themes-italic-constructs t
+      modus-themes-bold-constructs nil
+      modus-themes-subtle-line-numbers t
+      modus-themes-fringes 'subtle
+      modus-themes-mode-line '(accented borderless (padding . 4) (height . 0.9))
+      modus-themes-hl-line '(accented)
+      modus-themes-paren-match '(bold intense)
+      modus-themes-region '(bg-only no-extend accented))
+(load-theme 'modus-operandi)
 
 (setq user-full-name "Scott Barron"
       user-mail-address "scott@barron.io")
