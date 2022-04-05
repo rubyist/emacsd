@@ -375,6 +375,8 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; (set-face-attribute 'default nil :family "Menlo" :height 150)
 (setq default-frame-alist '((font . "Office Code Pro D-14")))
+(set-face-attribute 'default nil :weight 'light)
+(set-face-attribute 'bold nil :weight 'medium)
 
 (setq modus-themes-italic-constructs t
       modus-themes-bold-constructs t
