@@ -51,6 +51,7 @@
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 (global-hl-line-mode)
+(global-visual-line-mode)
 
 (add-to-list 'initial-frame-alist '(width . (text-pixels . 1260)))
 (add-to-list 'initial-frame-alist '(height . (text-pixels . 1920)))
