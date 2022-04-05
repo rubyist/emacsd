@@ -373,10 +373,11 @@ point reaches the beginning or end of the buffer, stop there."
 ;; (use-package nano-modeline)
 ;; (nano-modeline-mode)
 
-(set-face-attribute 'default nil :family "Menlo" :height 150)
+;; (set-face-attribute 'default nil :family "Menlo" :height 150)
+(setq default-frame-alist '((font . "Office Code Pro D-14")))
 
 (setq modus-themes-italic-constructs t
-      modus-themes-bold-constructs nil
+      modus-themes-bold-constructs t
       modus-themes-subtle-line-numbers t
       modus-themes-fringes 'subtle
       modus-themes-mode-line '(accented borderless (padding . 4) (height . 0.9))
