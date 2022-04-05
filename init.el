@@ -278,6 +278,8 @@
   :commands (eglot eglot-ensure)
   :hook ((elixir-mode . eglot-ensure)))
 
+(use-package json-mode)
+
 (use-package jq-mode)
 (add-to-list 'auto-mode-alist '("\\.jq$" . jq-mode))
 
@@ -450,6 +452,19 @@ point reaches the beginning or end of the buffer, stop there."
 	       (side . bottom)
 	       (slot . 1)))
 
+(setq-default mode-line-format '("%e" mode-line-front-space
+			 mode-line-modified "  %b  " (vc-mode vc-mode) "  " mode-name))
+
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (load custom-file)
+
+;; ("%e" mode-line-front-space
+;;  (:propertize
+;;   ("" mode-line-mule-info mode-line-client mode-line-modified mode-line-remote)
+;;   display
+;;   (min-width
+;;    (5.0)))
+;;  mode-line-frame-identification mode-line-buffer-identification "  " mode-line-position
+;;  (vc-mode vc-mode)
+;;  "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)
 
