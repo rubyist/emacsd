@@ -370,6 +370,7 @@ point reaches the beginning or end of the buffer, stop there."
       (move-beginning-of-line 1))))
 (global-set-key [remap move-beginning-of-line]
 		'smarter-move-beginning-of-line)
+(global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
 
 ;; (use-package nano-theme)
 ;; (nano-light)
@@ -468,4 +469,3 @@ point reaches the beginning or end of the buffer, stop there."
 ;;  mode-line-frame-identification mode-line-buffer-identification "  " mode-line-position
 ;;  (vc-mode vc-mode)
 ;;  "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)
-
