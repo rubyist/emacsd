@@ -259,6 +259,8 @@
 (use-package exunit)
 (add-hook 'elixir-mode-hook 'exunit-mode)
 
+(use-package haskell-mode)
+
 (use-package hl-todo
   :init
   (global-hl-todo-mode))
