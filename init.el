@@ -48,8 +48,8 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode t)
+(setq display-line-numbers-type t)
+(global-display-line-numbers-mode nil)
 (global-hl-line-mode)
 (global-visual-line-mode)
 
@@ -59,6 +59,19 @@
 (add-to-list 'initial-frame-alist '(left . 1280))
 
 (unbind-key "C-z")
+(unbind-key "C-<wheel-down>")
+(unbind-key "C-<wheel-up>")
+(unbind-key "C-<double-wheel-down>")
+(unbind-key "C-<double-wheel-up>")
+(unbind-key "C-<triple-wheel-down>")
+(unbind-key "C-<triple-wheel-up>")
+
+(use-package multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-M-j") 'mc/mark-all-dwim)
 
 (electric-pair-mode)
 
@@ -67,6 +80,14 @@
   (setq exec-path-from-shell-variables
 	'("PATH" "MANPATH" "SSH_AUTH_SOCK"))
   (exec-path-from-shell-initialize))
+
+(use-package treemacs)
+
+(use-package treemacs-projectile
+  :after (treemacs projectile))
+
+(use-package treemacs-magit
+  :after (treemacs magit))
 
 (use-package ace-window)
 (global-set-key (kbd "M-o") 'ace-window)
@@ -246,6 +267,8 @@
 (use-package flycheck
   :init (global-flycheck-mode))
 
+(use-package yaml-mode)
+
 (use-package elixir-mode)
 (add-hook 'elixir-mode-hook
 	  (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
@@ -260,6 +283,32 @@
 (add-hook 'elixir-mode-hook 'exunit-mode)
 
 (use-package haskell-mode)
+(use-package fsharp-mode)
+
+(use-package web-mode)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1))
+
+(use-package tide
+  :after (typescript-mode flycheck)
+  :hook ((typescript-mode . tide-setup)
+	 (typescript-mode . tide-hl-identifier-mode)
+	 (before-save . tide-format-before-save)))
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+	  (lambda ()
+	    (when (string-equal "tsx" (file-name-extension buffer-file-name))
+	      (setup-tide-mode))))
+
+(flycheck-add-mode 'typescript-tslint 'web-mode)
 
 (use-package hl-todo
   :init
@@ -281,6 +330,9 @@
   :commands (eglot eglot-ensure)
   :hook ((elixir-mode . eglot-ensure)))
 
+(use-package purescript-mode)
+(use-package psc-ide)
+
 (use-package json-mode)
 
 (use-package jq-mode)
@@ -292,17 +344,21 @@
 		   :repo "pashky/restclient.el"
 		   :files ("restclient-jq.el")))
 (add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
+(use-package ob-restclient)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((restclient . t)))
 
-(use-package org-roam)
-(use-package websocket
-  :after org-roam)
+;(use-package org-roam)
+;(use-package websocket
+;  :after org-roam)
 
-(use-package org-roam-ui
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme t
-	org-roam-ui-follow t
-	org-roam-ui-update-on-save t))
+;(use-package org-roam-ui
+;  :after org-roam
+  ;; :config
+  ;; (setq org-roam-ui-sync-theme t
+  ;; 	org-roam-ui-follow t
+  ;; 	org-roam-ui-update-on-save t))
 
 (use-package org-bullets
   :after org
@@ -471,3 +527,12 @@ point reaches the beginning or end of the buffer, stop there."
 ;;  mode-line-frame-identification mode-line-buffer-identification "  " mode-line-position
 ;;  (vc-mode vc-mode)
 ;;  "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)
+
+(defun ask-before-closing ()
+  "Close only if y was pressed."
+  (interactive)
+  (if (y-or-n-p (format "Are you sure you want to close this frame? "))
+      (save-buffers-kill-emacs)                                                                                            
+    (message "Canceled frame close")))
+
+(global-set-key (kbd "C-x C-c") 'ask-before-closing)
